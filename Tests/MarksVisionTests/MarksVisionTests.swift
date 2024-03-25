@@ -10,7 +10,7 @@ final class MarksVisionTests: XCTestCase {
             return
         }
         let text = await MarksVision.read(image: cgImage)
-        print(text)
+        print(text.joined(separator: "\n"))
     }
 }
 

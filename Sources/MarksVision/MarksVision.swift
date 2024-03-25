@@ -5,7 +5,7 @@ import CoreGraphics
 import Vision
 
 public struct MarksVision {
-    public static func read(image: CGImage, handler: @escaping (String) -> Void) {
+    public static func read(image: CGImage, handler: @escaping ([String]) -> Void) {
         let requestHandler: VNImageRequestHandler = .init(cgImage: image)
         let request: VNRecognizeTextRequest = .init { (request, error) in
             guard let observations = request.results as? [VNRecognizedTextObservation] else {
@@ -14,7 +14,7 @@ public struct MarksVision {
             
             let recognizedText = observations.compactMap { observation in
                 observation.topCandidates(1).first?.string
-            }.joined(separator: "\n")
+            }
             
             handler(recognizedText)
         }
@@ -28,7 +28,7 @@ public struct MarksVision {
         }
     }
     
-    public static func read(image: CGImage) async -> String {
+    public static func read(image: CGImage) async -> [String] {
         await withCheckedContinuation { continuation in
             read(image: image) { text in
                 continuation.resume(returning: text)
