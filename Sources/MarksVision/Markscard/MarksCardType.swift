@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MarksCardType {
+public enum MarksCardType: String, Codable {
     case icse, cbse10, karnatakaState10
     case isc, cbse12, karnatakaState12
 }

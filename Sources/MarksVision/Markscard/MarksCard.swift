@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol MarksCard {
+public protocol MarksCard: Codable, Hashable {
     var type: MarksCardType { get }
     
     var name: String { get }

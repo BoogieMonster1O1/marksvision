@@ -9,6 +9,31 @@ import Foundation
 
 internal struct ICSEParser: Parser {
     func parse(data: [String]) throws -> ICSEMarksCard {
+        guard let name = parseName(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "name")
+        }
+                
+        guard let schoolName = parseSchoolName(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "school name")
+        }
+                
+        guard let dob = parseDob(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "date of birth")
+        }
+                
+        guard let yearOfPassing = parseYearOfPassing(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "year of passing")
+        }
+                
+        guard let uniqueID = parseUniqueID(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "unique ID")
+        }
+                
+        guard let indexNumber = parseIndexNumber(data: data) else {
+            throw ParserError.couldNotParse(fieldName: "index number")
+        }
+        
+        return ICSEMarksCard(name: name, school: schoolName, dob: dob, yearOfPassing: yearOfPassing, uniqueID: uniqueID, indexNumber: indexNumber)
         
     }
     
@@ -33,7 +58,7 @@ internal struct ICSEParser: Parser {
     
     func parseYearOfPassing(data: [String]) -> Int? {
         guard let yearIndex = data.firstIndex(where: { $0.hasPrefix("INDIAN CERTIFICATE OF SECONDARY EDUCATION (CLASS - X) - YEAR") }) else {
-            return nil // Line with year information not found
+            return nil
         }
         
         let yearLine = data[yearIndex]

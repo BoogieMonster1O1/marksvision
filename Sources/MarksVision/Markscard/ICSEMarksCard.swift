@@ -8,21 +8,23 @@
 import Foundation
 
 public struct ICSEMarksCard: MarksCard {
-    public let type: MarksCardType = .icse
+    public var type: MarksCardType {
+        return .icse
+    }
     
     public let name: String
     
-    public let dob: Date
-    
     public let school: String
     
-    public let uniqueID: String
+    public let dob: Date
     
     public let yearOfPassing: Int
+
+    public let uniqueID: String
     
     public let indexNumber: String
     
-    public init(name: String, dob: Date, school: String, uniqueID: String, yearOfPassing: Int, indexNumber: String) {
+    public init(name: String, school: String, dob: Date, yearOfPassing: Int, uniqueID: String, indexNumber: String) {
         self.name = name
         self.dob = dob
         self.school = school
