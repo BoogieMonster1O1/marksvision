@@ -2,11 +2,20 @@ import XCTest
 @testable import MarksVision
 
 final class MarksVisionTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
+    func testRead() async throws {
+        let path = "/Users/shrishdeshpande/PycharmProjects/marksvision/example/icse_10_1.jpg"
+        let image: CGImage? = NSImage.init(contentsOfFile: path)!.cgImage
+        guard let cgImage = image else {
+            XCTFail("Could not load image")
+            return
+        }
+        let text = await MarksVision.read(image: cgImage)
+        print(text)
+    }
+}
 
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+extension NSImage {
+    fileprivate var cgImage: CGImage? {
+        return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
     }
 }
